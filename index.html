@@ -115,5 +115,28 @@
       // No visual feedback, no real function
     });
   </script>
+
+  <!-- Theme Toggle Button -->
+<div style="position: fixed; top: 20px; right: 20px;">
+  <button id="themeToggle" style="padding: 10px 15px; border-radius: 5px; background: #f0f0f0; border: 1px solid #ccc;">
+    🌙 Toggle Theme
+  </button>
+</div>
+
+<script>
+  const toggleBtn = document.getElementById('themeToggle');
+  let darkMode = false;
+
+  toggleBtn.addEventListener('click', () => {
+    darkMode = !darkMode;
+    
+    // BUG: This only toggles the icon but doesn't apply theme styles
+    toggleBtn.textContent = darkMode ? '🌞 Toggle Theme' : '🌙 Toggle Theme';
+
+    // Missing functionality:
+    // document.body.classList.toggle('dark-theme'); <-- should be here
+  });
+</script>
+
 </body>
 </html>
