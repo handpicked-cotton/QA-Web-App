@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buggy Web App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    header {
+      background-color: #333;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      max-width: 600px;
+      margin: 40px auto;
+      background: white;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, button, select {
+      display: block;
+      margin-bottom: 15px;
+      width: 100%;
+      padding: 10px;
+    }
+    .error {
+      color: red;
+      font-size: 0.9em;
+      display: none;
+    }
+    footer {
+      text-align: center;
+      padding: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Buggy App</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="brokenlink.html">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Login Form</h2>
+    <form id="loginForm">
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email" placeholder="Enter email" />
+      <div id="emailError" class="error">Please enter a valid email.</div>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" />
+      <div id="passwordError" class="error">Password is required.</div>
+
+      <label for="role">Role:</label>
+      <select id="role">
+        <option>Choose a role</option>
+      </select>
+
+      <button type="submit">Log In</button>
+    </form>
+
+    <button id="ghostBtn">Click Me</button>
+  </main>
+
+  <footer>
+    <p>© 2025 Buggy App. All rights reserved</p>
+  </footer>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      let valid = true;
+
+      if (!email.includes('@')) {
+        document.getElementById('emailError').style.display = 'block';
+        valid = false;
+      }
+
+      if (password === '') {
+        document.getElementById('passwordError').style.display = 'block';
+        valid = false;
+      }
+
+      if (valid) {
+        alert('Login successful!');
+      }
+    });
+
+    // Ghost button behavior
+    document.getElementById('ghostBtn').addEventListener('click', function() {
+      console.log('Ghost button clicked');
+      // No visual feedback, no real function
+    });
+  </script>
+</body>
+</html>
