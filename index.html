@@ -7,136 +7,98 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 20px;
+      margin: 20px;
+      transition: background-color 0.3s, color 0.3s;
     }
-    header {
-      background-color: #333;
-      color: white;
-      padding: 10px;
-      text-align: center;
-    }
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    main {
-      max-width: 600px;
-      margin: 40px auto;
-      background: white;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    input, button, select {
-      display: block;
-      margin-bottom: 15px;
-      width: 100%;
-      padding: 10px;
+    .dark-theme {
+      background-color: #222;
+      color: #f0f0f0;
     }
     .error {
       color: red;
       font-size: 0.9em;
-      display: none;
     }
-    footer {
-      text-align: center;
-      padding: 10px;
-      margin-top: 20px;
+    nav a {
+      margin: 0 10px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Buggy App</h1>
-    <nav>
-      <a href="#">Home</a>
-      <a href="brokenlink.html">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+  <nav>
+    <a href="#">Home</a>
+    <a href="form.html">Form Page</a>
+    <a href="about.html">About</a> <!-- Broken link -->
+  </nav>
 
-  <main>
-    <h2>Login Form</h2>
-    <form id="loginForm">
+  <h1>Welcome to the Buggy Login Page</h1>
+  <form id="loginForm">
+    <div>
       <label for="email">Email:</label>
-      <input type="text" id="email" name="email" placeholder="Enter email" />
-      <div id="emailError" class="error">Please enter a valid email.</div>
-
+      <input type="text" id="email" name="email" />
+      <div id="emailError" class="error"></div>
+    </div>
+    <div>
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" />
-      <div id="passwordError" class="error">Password is required.</div>
-
+      <div id="passwordError" class="error"></div>
+    </div>
+    <div>
       <label for="role">Role:</label>
-      <select id="role">
-        <option>Choose a role</option>
+      <select id="role" name="role">
+        <option value="">Select...</option>
+        <option value="admin">Admin</option>
       </select>
+    </div>
+    <button type="submit">Login</button>
+    <button type="button" id="ghostBtn">Ghost Button</button>
+  </form>
 
-      <button type="submit">Log In</button>
-    </form>
-
-    <button id="ghostBtn">Click Me</button>
-  </main>
-
-  <footer>
-    <p>© 2025 Buggy App. All rights reserved</p>
-  </footer>
+  <!-- Theme Toggle Button -->
+  <div style="position: fixed; top: 20px; right: 20px;">
+    <button id="themeToggle" style="padding: 10px 15px; border-radius: 5px; background: #f0f0f0; border: 1px solid #ccc;">
+      🌙
+    </button>
+  </div>
 
   <script>
+    document.getElementById('ghostBtn').addEventListener('click', () => {
+      console.log("Ghost button clicked"); // No visible action
+    });
+
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
-      let valid = true;
+      const role = document.getElementById('role').value;
 
+      // Reset errors
+      document.getElementById('emailError').textContent = '';
+      document.getElementById('passwordError').textContent = '';
+
+      let hasError = false;
       if (!email.includes('@')) {
-        document.getElementById('emailError').style.display = 'block';
-        valid = false;
+        document.getElementById('emailError').textContent = 'Invalid email format';
+        hasError = true;
       }
-
       if (password === '') {
-        document.getElementById('passwordError').style.display = 'block';
-        valid = false;
+        document.getElementById('passwordError').textContent = 'Password cannot be empty';
+        hasError = true;
       }
 
-      if (valid) {
-        alert('Login successful!');
+      if (!hasError) {
+        alert('Logged in successfully!');
       }
     });
 
-    // Ghost button behavior
-    document.getElementById('ghostBtn').addEventListener('click', function() {
-      console.log('Ghost button clicked');
-      // No visual feedback, no real function
+    const toggleBtn = document.getElementById('themeToggle');
+    let darkMode = false;
+
+    toggleBtn.addEventListener('click', () => {
+      darkMode = !darkMode;
+      toggleBtn.textContent = darkMode ? '🌞' : '🌙';
+      // BUG: theme not actually toggled
     });
   </script>
-
-  <!-- Theme Toggle Button -->
-<div style="position: fixed; top: 20px; right: 20px;">
-  <button id="themeToggle" style="padding: 10px 15px; border-radius: 5px; background: #f0f0f0; border: 1px solid #ccc;">
-    🌙
-  </button>
-</div>
-
-<script>
-  const toggleBtn = document.getElementById('themeToggle');
-  let darkMode = false;
-
-  toggleBtn.addEventListener('click', () => {
-    darkMode = !darkMode;
-    
-    // BUG: This only toggles the icon but doesn't apply theme styles
-    toggleBtn.textContent = darkMode ? '🌞 ' : '🌙 ';
-
-    // Missing functionality:
-    // document.body.classList.toggle('dark-theme'); <-- should be here
-  });
-</script>
-
 </body>
 </html>
